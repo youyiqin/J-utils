@@ -26,13 +26,19 @@ module.exports = {
   ],
   module: {
     rules: [{
-      test: /.tsx?$/,
+      test: /.ts$/,
       exclude: /node_modules/,
       use: {
-        loader: "ts-loader",
+        loader: "swc-loader",
         options: {
           // disable type checker - we will use it in fork plugin
-          transpileOnly: true
+          // transpileOnly: true
+          sync: true,
+          jsc: {
+            parser: {
+              syntax: "typescript"
+            }
+          }
         }
       }
     }]

@@ -1,6 +1,1 @@
-const a = (str: string) => {
-  console.log(str);
-  return true
-}
-
-a()
+console.log([1, 2, 3].includes(1));

@@ -1,46 +1,36 @@
-const path = require('path')
-const htmlWebpackPlugin = require('html-webpack-plugin')
-const ForkTsCheckerWebpackPlugin = require('fork-ts-checker-webpack-plugin');
+/* eslint-disable */
+const path = require('path');
+const htmlWebpackPlugin = require('html-webpack-plugin');
 
 module.exports = {
-  mode: "development",
+  mode: 'development',
   context: __dirname,
-  entry: "./src/index.ts",
+  entry: './src/index.ts',
   devtool: 'source-map',
   output: {
     path: path.resolve(__dirname, 'dist'),
-    filename: '[contenthash:8].bundle.js'
+    filename: '[contenthash].bundle.js',
   },
   resolve: {
-    extensions: [".ts", ".tsx", ".js"]
+    extensions: ['.ts', '.js'],
   },
   plugins: [
     new htmlWebpackPlugin({
-      template: "./src/index.html"
+      template: './src/index.html',
     }),
-    new ForkTsCheckerWebpackPlugin({
-      eslint: {
-        files: './src/**/*.{ts,tsx}'
-      }
-    })
   ],
   module: {
     rules: [{
       test: /.ts$/,
       exclude: /node_modules/,
       use: {
-        loader: "swc-loader",
+        loader: 'swc-loader',
         options: {
           // disable type checker - we will use it in fork plugin
           // transpileOnly: true
           sync: true,
-          jsc: {
-            parser: {
-              syntax: "typescript"
-            }
-          }
-        }
-      }
-    }]
-  }
-}
+        },
+      },
+    }],
+  },
+};

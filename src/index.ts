@@ -1,1 +1,2 @@
-console.log([1, 2, 3].includes(1));
+const foo = () => console.log('it is foo function.');
+foo();

@@ -5,18 +5,18 @@ module.exports = {
     node: true,
   },
   extends: [
-    "airbnb-base",
+    'airbnb-base',
+    'plugin:prettier/recommand',
   ],
-  parser: "@typescript-eslint/parser",
+  parser: '@typescript-eslint/parser',
   parserOptions: {
     ecmaVersion: 12,
-    sourceType: "module",
+    sourceType: 'module',
   },
   plugins: [
-    "@typescript-eslint",
+    '@typescript-eslint',
   ],
   rules: {
-    "no-console": 0,
-    quotes: ["error", "double"],
+    'no-console': 0,
   },
 };

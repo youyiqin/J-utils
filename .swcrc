@@ -1,0 +1,15 @@
+{
+  "env": {   
+    "mode": "entry",
+    "coreJs": 3,
+    "targets": "chrome 80",
+    "forceAllTransforms": false,
+    "skippedProposals": true
+  },
+  "jsc": {
+    "target": "es2020",
+    "parser": {
+      "syntax": "typescript"
+    }
+  }
+}

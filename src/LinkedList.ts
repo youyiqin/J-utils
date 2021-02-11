@@ -19,8 +19,7 @@ export default class LinkedList {
     } else {
       let head = this.head;
       while (head) {
-        if(!head.next) {
-          
+        if (!head.next) {
         }
       }
     }

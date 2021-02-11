@@ -23,7 +23,25 @@ export function strStr(haystack: string, needle: string): number {
   return haystack.indexOf(needle);
 }
 
-export function strStrss(haystack: string, needle: string): number {
-  if (needle === "") return 0;
-  return haystack.indexOf(needle);
+/**
+给定一个包含红色、白色和蓝色，一共 n 个元素的数组，原地对它们进行排序，使得相同颜色的元素相邻，并按照红色、白色、蓝色顺序排列。
+此题中，我们使用整数 0、 1 和 2 分别表示红色、白色和蓝色。
+示例 1：
+输入：nums = [2,0,2,1,1,0]
+输出：[0,0,1,1,2,2]
+ */
+export function sortColors(nums: number[]): number[] {
+  const colorsCount = [0, 0, 0];
+  for (let i = 0; i < nums.length; i += 1) {
+    colorsCount[nums[i]] += 1;
+  }
+  let j = 0;
+  for (let i = 0; i < colorsCount.length; i += 1) {
+    while (colorsCount[i]) {
+      nums[j] = i; // eslint-disable-line
+      j += 1;
+      colorsCount[i] -= 1;
+    }
+  }
+  return nums;
 }

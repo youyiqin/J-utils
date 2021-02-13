@@ -19,6 +19,11 @@ module.exports = {
     "no-console": 0,
     "import/extensions": "off",
     "no-irregular-whitespace": ["error", { skipComments: true }],
+    "max-classes-per-file": "off",
+    "no-plusplus": "off",
+    "no-bitwise": "off",
+    "prefer-const": "off",
+    "no-trailing-spaces": "error",
   },
   settings: {
     "import/resolver": {

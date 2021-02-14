@@ -6,5 +6,17 @@ export default function validateStackSequences(
   pushed: number[],
   popped: number[]
 ): boolean {
-  
+  let pushedIndex = 0;
+  let poppedIndex = 0;
+  while (pushed.length !== 0) {
+    if (pushed[pushedIndex] !== popped[poppedIndex]) {
+      pushedIndex++;
+      if (pushedIndex >= pushed.length) return false;
+    } else {
+      poppedIndex++;
+      pushed.splice(pushedIndex, 1);
+      pushedIndex--;
+    }
+  }
+  return true;
 }

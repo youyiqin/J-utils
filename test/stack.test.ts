@@ -1,6 +1,7 @@
 import Stack from "../src/stack/Stack";
 import evalRPN from "../src/stack/evalRPN";
 import decodeString from "../src/stack/decodeString";
+import validateStackSequeces from "../src/stack/validateStackSequences";
 
 it("leetcode 1381", () => {
   const s = new Stack(3);
@@ -435,4 +436,11 @@ it("leetcode 150", () => {
 it("leetcode 394", () => {
   expect(decodeString("3[a]2[bc]")).toBe("aaabcbc");
   expect(decodeString("3[a2[c]]")).toBe("accaccacc");
+});
+
+it("leetcode 946", () => {
+  expect(validateStackSequeces([2, 1, 0], [1, 2, 0])).toBe(true);
+  expect(validateStackSequeces([1, 2, 3, 4], [2, 4, 3, 1])).toBe(true);
+  expect(validateStackSequeces([1, 2, 3, 4, 5], [4, 5, 3, 2, 1])).toBe(true);
+  expect(validateStackSequeces([1, 2, 3, 4, 5], [4, 3, 5, 1, 2])).toBe(false);
 });

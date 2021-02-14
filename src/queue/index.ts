@@ -12,9 +12,6 @@ export default class Queue {
   }
 
   enqueue(item: unknown) {
-    if (this.isEmpty()) {
-      this.lowestCount++;
-    }
     this.items[this.count++] = item;
   }
 
@@ -32,6 +29,10 @@ export default class Queue {
   }
 
   isEmpty() {
-    return this.items[this.lowestCount] === undefined;
+    return this.count === this.lowestCount;
+  }
+
+  size() {
+    return this.count - this.lowestCount;
   }
 }

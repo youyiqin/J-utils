@@ -2,6 +2,7 @@ import Stack from "../src/stack/Stack";
 import evalRPN from "../src/stack/evalRPN";
 import decodeString from "../src/stack/decodeString";
 import validateStackSequeces from "../src/stack/validateStackSequences";
+import Queue from "../src/queue/index";
 
 it("leetcode 1381", () => {
   const s = new Stack(3);
@@ -443,4 +444,14 @@ it("leetcode 946", () => {
   expect(validateStackSequeces([1, 2, 3, 4], [2, 4, 3, 1])).toBe(true);
   expect(validateStackSequeces([1, 2, 3, 4, 5], [4, 5, 3, 2, 1])).toBe(true);
   expect(validateStackSequeces([1, 2, 3, 4, 5], [4, 3, 5, 1, 2])).toBe(false);
+});
+
+it("data struct queue basic test", () => {
+  const q = new Queue();
+  expect(q.dequeue()).toBeUndefined();
+  q.enqueue("a");
+  expect(q.peek()).toBe("a");
+  expect(q.isEmpty()).toBeFalsy();
+  expect(q.dequeue()).toBe("a");
+  expect(q.isEmpty()).toBeTruthy();
 });

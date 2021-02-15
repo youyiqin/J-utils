@@ -35,4 +35,15 @@ export default class Queue {
   size() {
     return this.count - this.lowestCount;
   }
+
+  clear() {
+    this.items = {};
+    this.count = 0;
+    this.lowestCount = 0;
+  }
+
+  toString() {
+    if (this.isEmpty()) return "";
+    return Object.values(this.items).toString();
+  }
 }

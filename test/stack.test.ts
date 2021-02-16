@@ -2,8 +2,7 @@ import Stack from "../src/stack/Stack";
 import evalRPN from "../src/stack/evalRPN";
 import decodeString from "../src/stack/decodeString";
 import validateStackSequeces from "../src/stack/validateStackSequences";
-import Queue from "../src/queue/index";
-import DoubuleSideQueue from "../src/queue/doubleSideQueue";
+import MinStack from "../src/stack/minStack";
 
 it("leetcode 1381", () => {
   const s = new Stack(3);
@@ -447,31 +446,21 @@ it("leetcode 946", () => {
   expect(validateStackSequeces([1, 2, 3, 4, 5], [4, 3, 5, 1, 2])).toBe(false);
 });
 
-it("data struct queue basic test", () => {
-  const q = new Queue();
-  expect(q.dequeue()).toBeUndefined();
-  q.enqueue("a");
-  expect(q.peek()).toBe("a");
-  expect(q.isEmpty()).toBeFalsy();
-  expect(q.dequeue()).toBe("a");
-  expect(q.isEmpty()).toBeTruthy();
-  q.enqueue("1");
-  q.enqueue("2");
-  expect(q.toString()).toBe("1,2");
-  expect(q.dequeue()).toBe("1");
-  expect(q.size()).toBe(1);
-  q.clear();
-  expect(q.isEmpty()).toBeTruthy();
-});
-
-it("double side queue test", () => {
-  const dq = new DoubuleSideQueue();
-  dq.addBack("John");
-  dq.addBack("Aaron");
-  expect(dq.size()).toBe(2);
-  expect(dq.toString()).toBe("John,Aaron");
-  expect(dq.isEmpty()).toBeFalsy();
-  expect(dq.removeBack()).toBe("Aaron");
-  expect(dq.peekBack()).toBe("John");
-  expect(dq.peekFront()).toBe("John");
+it("leetcode 155", () => {
+  const minStack = new MinStack();
+  minStack.push(-2);
+  minStack.push(0);
+  minStack.push(-3);
+  expect(minStack.getMin()).toBe(-3);
+  expect(minStack.pop()).toBe(-3);
+  expect(minStack.top()).toBe(0);
+  expect(minStack.getMin()).toBe(-2);
+  const minStack1 = new MinStack();
+  minStack1.push(-2);
+  minStack1.push(0);
+  minStack1.push(-1);
+  expect(minStack1.getMin()).toBe(-2);
+  expect(minStack1.top()).toBe(-1);
+  expect(minStack1.pop()).toBe(-1);
+  expect(minStack1.getMin()).toBe(-2);
 });

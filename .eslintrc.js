@@ -24,6 +24,7 @@ module.exports = {
     "no-bitwise": "off",
     "prefer-const": "off",
     "no-trailing-spaces": "error",
+    "prefer-destructuring": "off",
   },
   settings: {
     "import/resolver": {

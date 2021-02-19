@@ -4,7 +4,7 @@ import {
   RandomizedSet,
   generateMatrix,
   buddyStrings,
-} from "../src/MyArray";
+} from "../src/array/MyArray";
 
 it("leetcode 28", () => {
   expect(strStr("12345abc", "ab")).toBe(5);

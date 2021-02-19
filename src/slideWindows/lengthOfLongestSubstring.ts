@@ -1,13 +1,19 @@
 // leetcode 3
 export default function lengthOfLongestSubstring(s: string): number {
   if (s.length === 0 || s.length === 1) return s.length;
-  const items = {};
+  let items: Map<string, number> = new Map();
   let res = 1;
   let l = 0;
-  let r = 1;
-  while(r < s.length) {
-        
+  let r = 0;
+  items.set(s[l], l);
+  while ((r++, r < s.length)) {
+    if (items.has(s[r]) && items.get(s[r]) >= l) {
+      l = items.get(s[r]) + 1;
+    }
+    res = Math.max(res, r - l + 1);
+    items.set(s[r], r);
   }
+  return res;
 }
 
 /**

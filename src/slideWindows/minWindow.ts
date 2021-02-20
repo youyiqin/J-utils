@@ -2,36 +2,38 @@
  * leetcode 76
  */
 export default function minWindow(s: string, t: string): string {
-  let tObj: { [name: string]: number } = {};
-  for (let i = 0; i < t.length; i++) {
-    tObj[t[i]] = -1;
-  }
   let leftIndex = 0;
   let rightIndex = 0;
+  let obj: { [name: string]: number } = {};
+  let missingType = 0;
+  for (let i = 0; i < t.length; i++) {
+    if (obj[i]) {
+      obj[i]++;
+    } else {
+      missingType++;
+      obj[i] = 1;
+    }
+  }
   let res = "";
   while (rightIndex < s.length) {
-    if (tObj[s[rightIndex]] !== undefined) {
-      tObj[s[rightIndex]] = rightIndex;
-    }
-    console.log(tObj, "is tObj");
-
-    // 找出中间条件
-    let subString = s.slice(leftIndex, rightIndex + 1);
-    console.log("subString is:", subString);
-    console.log("更新后的 leftIndex", leftIndex);
-
-    if (Object.values(tObj).every((i) => i !== -1)) {
+    let rightChar = s[rightIndex];
+    if (obj[rightChar] !== undefined) obj[rightChar]--;
+    if (obj[rightChar] === 0) missingType--;
+    while (missingType === 0) {
+      let subString = s.substring(leftIndex, rightIndex + 1);
       if (res === "") {
         res = subString;
       } else {
         res = res.length < subString.length ? res : subString;
       }
-      leftIndex = Object.values(tObj).sort((a, b) => a - b)[0];
-
-      tObj[s[leftIndex++]] = -1;
+      const _ = s[leftIndex];
+      if (obj[_] !== undefined) {
+        obj[_]++;
+        if (obj[_] === 1) missingType++;
+      }
+      leftIndex += 1;
     }
     rightIndex++;
-    console.log("res is", res, "leftIndex is", leftIndex);
   }
   return res;
 }

@@ -9,5 +9,9 @@ it("leetcode 3", () => {
 
 it("leetcode 76", () => {
   expect(minWindow("a", "a")).toBe("a");
-  expect(minWindow("issadciuae", "ai")).toBe("iua");
+  expect(minWindow("aabc", "ba")).toBe("ab");
+  expect(minWindow("ADOBECODEBANC", "ABC")).toBe("BANC");
+  expect(minWindow("a", "aa")).toBe("");
+  expect(minWindow("aa", "aa")).toBe("aa");
+  expect(minWindow("bbaa", "aba")).toBe("baa");
 });

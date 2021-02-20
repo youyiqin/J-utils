@@ -7,11 +7,11 @@ export default function minWindow(s: string, t: string): string {
   let obj: { [name: string]: number } = {};
   let missingType = 0;
   for (let i = 0; i < t.length; i++) {
-    if (obj[i]) {
-      obj[i]++;
+    if (obj[t[i]]) {
+      obj[t[i]]++;
     } else {
       missingType++;
-      obj[i] = 1;
+      obj[t[i]] = 1;
     }
   }
   let res = "";
@@ -31,7 +31,7 @@ export default function minWindow(s: string, t: string): string {
         obj[_]++;
         if (obj[_] === 1) missingType++;
       }
-      leftIndex += 1;
+      leftIndex++;
     }
     rightIndex++;
   }

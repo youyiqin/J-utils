@@ -33,6 +33,7 @@
     "dist/*.js"
   ],
   "dependencies": {
-    "prettier": "^2.2.1"
+    "prettier": "^2.2.1",
+    "shuffle-my-array": "^1.0.5"
   }
 }

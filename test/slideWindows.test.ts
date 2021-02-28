@@ -25,5 +25,6 @@ it("leetcode 209", () => {
 
 it("leetcode 438", () => {
   expect(findAnagrams("cbaebabacd", "abc")).toStrictEqual([0, 6]);
-  // expect(findAnagrams("abaacbabc", "abc")).toStrictEqual([3, 4, 6]);
+  expect(findAnagrams("abab", "ab")).toStrictEqual([0, 1, 2]);
+  expect(findAnagrams("abaacbabc", "abc")).toStrictEqual([3, 4, 6]);
 });

@@ -34,11 +34,28 @@ export default class LinkedList {
     this.count++;
   }
 
-  insert(v: number, position: number): boolean {}
+  insert(v: number, index: number): boolean {
+    if (index >= 0 && index <= this.count) {
+      const node: Node = new ListNode(v);
+      if (index === 0) {
+        const current = this.head;
+        this.head = node;
+        node.next = current;
+      } else {
+        const prev = this.getElementAt(index - 1);
+        node.next = prev.next;
+        prev.next = node;
+      }
+      this.count++;
+      return true;
+    }
+    return false;
+  }
 
-  getElementAt(index: number): Node | undefined {}
-
-  remove(v: number): Node {}
+  remove(v: number): Node {
+    const index = this.indexOf(v);
+    return this.removeAt(index);
+  }
 
   removeAt(index: number): Node {
     if (index >= 0 && index < this.count) {
@@ -47,27 +64,56 @@ export default class LinkedList {
       if (index === 0) {
         this.head = current.next;
       } else {
-        let prev: Node;
-        for (let i = 0; i < index; i++) {
-          prev = current;
-          current = current.next;
-        }
+        let prev = this.getElementAt(index - 1);
+        current = prev.next;
         // 连接 prev 和 current.next
         prev.next = current.next;
       }
+      this.count--;
       return current;
     }
-    this.count--;
     return undefined;
   }
 
-  indexOf(v: number): number {}
+  indexOf(v: number): number {
+    let current = this.head;
+    let i = 0;
+    while (i <= this.count && current !== undefined) {
+      if (this.equalsFn(v, current.val)) {
+        return i;
+      }
+      i++;
+      current = current.next;
+    }
+    return -1;
+  }
 
-  isEmpty(): boolean {}
+  isEmpty(): boolean {
+    return this.size() === 0;
+  }
 
   size(): number {
     return this.count;
   }
 
-  toString(): string {}
+  toString(): string {
+    let res: string[] = [];
+    let current = this.head;
+    while (current !== undefined) {
+      res.push(current.val.toString());
+      current = current.next;
+    }
+    return res.toString();
+  }
+
+  getElementAt(index: number): Node {
+    if (index >= 0 && index <= this.count) {
+      let node = this.head;
+      for (let i = 0; i < index && node !== null; i++) {
+        node = node.next;
+      }
+      return node;
+    }
+    return undefined;
+  }
 }

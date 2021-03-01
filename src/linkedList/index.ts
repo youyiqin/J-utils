@@ -1,40 +1,73 @@
-import { Node } from "./types/index";
+import { Node } from "../types/index";
+import { defaultEquals } from "../help";
 
-export function ListNode(val = 0, next = null) {
+export function ListNode(val = 0, next = undefined) {
   this.val = val;
   this.next = next;
 }
 
 export default class LinkedList {
-  private head?: Node;
+  head?: Node;
 
-  constructor(node?: Node) {
-    this.head = node ?? null;
+  count: number;
+
+  equalsFn: Function;
+
+  constructor(equalsFn = defaultEquals, node?: Node) {
+    this.head = node;
+    this.count = 0;
+    this.equalsFn = equalsFn;
   }
 
-  add(x: number) {
-    const node = new ListNode(x);
-    if (!this.head) {
+  push(v: number) {
+    const node = new ListNode(v);
+    let current: Node;
+    if (this.head === undefined) {
       this.head = node;
     } else {
-      let head = this.head;
-      while (head) {
-        if (!head.next) {
-        }
+      current = this.head;
+      while (current.next !== undefined) {
+        current = current.next;
       }
+      current.next = node;
     }
+    this.count++;
   }
 
-  toString() {
-    let r = "";
-    const next = this.head;
-    while (next) {
-      r += `${next.val}, `;
+  insert(v: number, position: number): boolean {}
+
+  getElementAt(index: number): Node | undefined {}
+
+  remove(v: number): Node {}
+
+  removeAt(index: number): Node {
+    if (index >= 0 && index < this.count) {
+      let current = this.head;
+      // 移除第一项
+      if (index === 0) {
+        this.head = current.next;
+      } else {
+        let prev: Node;
+        for (let i = 0; i < index; i++) {
+          prev = current;
+          current = current.next;
+        }
+        // 连接 prev 和 current.next
+        prev.next = current.next;
+      }
+      return current;
     }
-    console.log(r);
+    this.count--;
+    return undefined;
   }
 
-  getHead() {
-    return this.head;
+  indexOf(v: number): number {}
+
+  isEmpty(): boolean {}
+
+  size(): number {
+    return this.count;
   }
+
+  toString(): string {}
 }

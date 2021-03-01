@@ -1,6 +1,6 @@
 export type Node = {
   val: number;
-  next: Node;
+  next: Node | undefined;
 };
 
 export type numberOrString = number | string;

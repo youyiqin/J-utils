@@ -50,7 +50,8 @@ export default class DoublyLinkedList {
   }
 
   insert(v: number, index: number): boolean {
-    if (!this.isEmpty()) {
+    if (this.isEmpty()) return false;
+    if (index >= 0 && index < this.count) {
       const node = new DoublyNode(v);
       let current = this.head;
       for (let i = 0; i < index; i++) {
@@ -60,6 +61,8 @@ export default class DoublyLinkedList {
       node.next = current;
       current.prev.next = node;
       current.prev = node;
+      this.count++;
+      if (index === 0) this.head = node;
       return true;
     }
     return false;

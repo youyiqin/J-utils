@@ -26,6 +26,11 @@ module.exports = {
     "no-trailing-spaces": "error",
     "prefer-destructuring": "off",
     "import/prefer-default-export": "off",
+    "no-restricted-syntax": [
+      "error",
+      "WithStatement",
+      "BinaryExpression[operator='in']",
+    ],
   },
   settings: {
     "import/resolver": {

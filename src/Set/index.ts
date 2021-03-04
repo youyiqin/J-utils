@@ -54,4 +54,11 @@ export default class MySet {
     }
     return res;
   }
+
+  union(otherSet: MySet): MySet {
+    const unionSet = new MySet();
+    this.values().forEach((i) => unionSet.add(i));
+    otherSet.values().forEach((i) => unionSet.add(i));
+    return unionSet;
+  }
 }

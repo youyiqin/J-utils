@@ -61,4 +61,34 @@ export default class MySet {
     otherSet.values().forEach((i) => unionSet.add(i));
     return unionSet;
   }
+
+  intersection(otherSet: MySet) {
+    const intersectionSet = new MySet();
+    const targetSet = this.size() < otherSet.size() ? this : otherSet;
+    targetSet.values().forEach((i) => {
+      if (otherSet.has(i)) {
+        intersectionSet.add(i);
+      }
+    });
+    return intersectionSet;
+  }
+
+  difference(otherSet: MySet): MySet {
+    const resSet = new MySet();
+    this.values().forEach((i) => {
+      if (!otherSet.has(i)) {
+        resSet.add(i);
+      }
+    });
+    return resSet;
+  }
+
+  isSubsetOf(otherSet: MySet): boolean {
+    if (this.size() > otherSet.size()) return false;
+    return this.values().every((i) => otherSet.has(i));
+  }
+
+  toString() {
+    return this.values().join("");
+  }
 }

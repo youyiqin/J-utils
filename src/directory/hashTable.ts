@@ -17,8 +17,7 @@ export default class HashTable {
 
   put(key: unknown, value: unknown): boolean {
     if (key && value) {
-      const position = this.loseloseHashCode(key);
-      this.table[position] = {
+      this.table[this.hashCode(key)] = {
         key,
         value,
       };
@@ -27,9 +26,23 @@ export default class HashTable {
     return false;
   }
 
-  remove(key: unknown): boolean {}
+  hashCode(key: unknown): string {
+    return `${this.loseloseHashCode(key)}${key}`;
+  }
 
-  get(key: unknown): any {}
+  remove(key: unknown): boolean {
+    const hash = this.hashCode(key);
+    const valuePair = this.table[hash];
+    if (valuePair !== undefined) {
+      delete this.table[hash];
+      return true;
+    }
+    return false;
+  }
+
+  get(key: unknown): any {
+    return this.table[this.hashCode(key)]?.value;
+  }
 
   loseloseHashCode(key: unknown): number {
     if (typeof key === "number") {
@@ -41,5 +54,13 @@ export default class HashTable {
       hash += tableKey.charCodeAt(i);
     }
     return hash % 37;
+  }
+
+  has(key: unknown): boolean {
+    return Object.prototype.hasOwnProperty.call(this.table, this.hashCode(key));
+  }
+
+  values() {
+    return Object.values(this.table);
   }
 }

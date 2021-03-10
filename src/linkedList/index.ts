@@ -1,7 +1,7 @@
 import { Node } from "../types/index";
 import { defaultEquals } from "../help";
 
-export function ListNode(val = 0, next = undefined) {
+export function ListNode(val: unknown, next = undefined) {
   this.val = val;
   this.next = next;
 }
@@ -19,7 +19,7 @@ export default class LinkedList {
     this.equalsFn = equalsFn;
   }
 
-  push(v: number) {
+  push(v: unknown) {
     const node = new ListNode(v);
     let current: Node;
     if (this.head === undefined) {
@@ -34,7 +34,7 @@ export default class LinkedList {
     this.count++;
   }
 
-  insert(v: number, index: number): boolean {
+  insert(v: unknown, index: number): boolean {
     if (index >= 0 && index <= this.count) {
       const node: Node = new ListNode(v);
       if (index === 0) {
@@ -75,7 +75,7 @@ export default class LinkedList {
     return undefined;
   }
 
-  indexOf(v: number): number {
+  indexOf(v: unknown): number {
     let current = this.head;
     let i = 0;
     while (i <= this.count && current !== undefined) {

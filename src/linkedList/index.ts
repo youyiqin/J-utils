@@ -52,7 +52,7 @@ export default class LinkedList {
     return false;
   }
 
-  remove(v: number): Node {
+  remove(v: unknown): Node {
     const index = this.indexOf(v);
     return this.removeAt(index);
   }

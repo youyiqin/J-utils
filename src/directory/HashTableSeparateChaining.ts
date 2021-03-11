@@ -2,13 +2,16 @@ import { defaultToString } from "../help";
 import LinkedList from "../linkedList/index";
 
 export default class HashTableSeparateChaining {
-  table: Object;
+  table: { [name: string]: LinkedList };
 
   toStrFn: Function;
+
+  count: number;
 
   constructor() {
     this.table = {};
     this.toStrFn = defaultToString;
+    this.count = 0;
   }
 
   put(key: unknown, value: unknown): boolean {
@@ -19,6 +22,35 @@ export default class HashTableSeparateChaining {
         this.table[hashCode] = linked;
       }
       this.table[hashCode].push([key, value]);
+      this.count++;
+      return true;
+    }
+    return false;
+  }
+
+  get(key: unknown): unknown {
+    const hashCode = this.getHashCode(key);
+    if (this.table[hashCode] && !this.table[hashCode].isEmpty()) {
+      let current = this.table[hashCode].head;
+      while (current) {
+        if (current.val[0] === key) {
+          return current.val[1];
+        }
+      }
+      current = current.next;
+    }
+    return undefined;
+  }
+
+  remove(key: unknown): boolean {
+    const hashCode = this.getHashCode(key);
+    const linked = this.table[hashCode];
+    if (linked && linked.indexOf(key) !== -1) {
+      linked.remove(key);
+      if (linked.isEmpty()) {
+        delete this.table[hashCode];
+      }
+      this.count--;
       return true;
     }
     return false;
@@ -32,5 +64,9 @@ export default class HashTableSeparateChaining {
       hash += tableKey.charCodeAt(i);
     }
     return hash % 37;
+  }
+
+  size() {
+    return this.count;
   }
 }

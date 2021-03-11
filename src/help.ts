@@ -17,3 +17,11 @@ export const defaultToString = (item: any): string => {
   const res: string = item.toString();
   return res;
 };
+
+export class ValuePair<K, V> {
+  constructor(public key: K, public value: V) {}
+
+  toString() {
+    return `[#${this.key}: ${this.value}]`;
+  }
+}

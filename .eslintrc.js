@@ -26,11 +26,16 @@ module.exports = {
     "no-trailing-spaces": "error",
     "prefer-destructuring": "off",
     "import/prefer-default-export": "off",
+    "no-useless-constructor": "off",
     "no-restricted-syntax": [
       "error",
       "WithStatement",
       "BinaryExpression[operator='in']",
     ],
+    "no-unused-vars": "off",
+    "@typescript-eslint/no-unused-vars": ["error"],
+    "no-empty-function": "off",
+    "@typescript-eslint/no-empty-function": ["error"],
   },
   settings: {
     "import/resolver": {

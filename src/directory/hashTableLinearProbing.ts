@@ -88,9 +88,12 @@ export default class HashTableLinearProbing<K, V> {
     let index = removePosition + 1;
     while (this.table[index] != null) {
       const posHash = this.hashCode(this.table[index].key);
-      if(posHash <= hash || posHash <= removePosition) {
-        
+      if (posHash <= hash || posHash <= removePosition) {
+        this.table[removePosition] = this.table[index];
+        delete this.table[index];
+        removePosition = index; // eslint-disable-line
       }
+      index++;
     }
   }
 }

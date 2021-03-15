@@ -13,10 +13,11 @@ export default class HashTableLinearProbing<K, V> {
   private loseloseHashCode(key: K) {
     if (typeof key === "number") return key;
     const tableHash = this.toStrFn(key);
+    console.log(tableHash, "is table hash value");
+
     let hash = 0;
     for (let i = 0; i < tableHash.length; i++) {
-      const element = tableHash[i];
-      hash += element.charCodeAt(i);
+      hash += tableHash.charCodeAt(i);
     }
     return hash % 37;
   }
@@ -37,9 +38,9 @@ export default class HashTableLinearProbing<K, V> {
           index++;
         }
         this.table[index] = new ValuePair(key, value);
-        this.size++;
-        return true;
       }
+      this.size++;
+      return true;
     }
     return false;
   }
@@ -95,5 +96,28 @@ export default class HashTableLinearProbing<K, V> {
       }
       index++;
     }
+  }
+
+  isEmpty() {
+    return this.size === 0;
+  }
+
+  clear() {
+    this.size = 0;
+    this.table = {};
+  }
+
+  getTable() {
+    return this.table;
+  }
+
+  toString(): string {
+    if (this.isEmpty()) return "";
+    const keys = Object.keys(this.table);
+    let objStr = `${keys[0]} => ${this.table[keys[0]].toString()}`;
+    for (let i = 1; i < keys.length; i++) {
+      objStr = `${objStr}, ${keys[i]} => ${this.table[keys[i]].toString()}`;
+    }
+    return objStr;
   }
 }

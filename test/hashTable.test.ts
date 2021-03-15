@@ -25,8 +25,8 @@ it("hashTableSeparateChaining", () => {
 });
 
 const t2 = new HashTableLinearProbing<number, number>();
-const A = "Smith";
-const B = "Aaron";
+const A = "Jamie";
+const B = "Jonathan";
 const C = "Sue";
 it("start empty", () => {
   expect(t2.isEmpty()).toBeTruthy();
@@ -99,3 +99,29 @@ it("无碰撞插入", () => {
   expect(table2[34].key).toBe("100");
   expect(table2[34].value).toBe(100);
 });
+
+function addValuesCollision() {
+  const hashTable = new HashTableLinearProbing<string, String>();
+  expect(hashTable.put(A, `${A}@qq.com`)).toBeTruthy();
+  expect(hashTable.put(B, `${B}@qq.com`)).toBeTruthy();
+  expect(hashTable.put(C, `${C}@qq.com`)).toBeTruthy();
+  expect(hashTable.size).toBe(3);
+
+  const expectedHash = 5;
+  expect(hashTable.hashCode(A)).toBe(expectedHash);
+  expect(hashTable.hashCode(B)).toBe(expectedHash);
+  expect(hashTable.hashCode(C)).toBe(expectedHash);
+
+  expect(hashTable.get(A)).toBe(`${A}@qq.com`);
+  expect(hashTable.get(B)).toBe(`${B}@qq.com`);
+  expect(hashTable.get(C)).toBe(`${C}@qq.com`);
+  expect(hashTable.remove(A)).toBeTruthy();
+  expect(hashTable.remove(A)).toBeFalsy();
+  expect(hashTable.remove(B)).toBeTruthy();
+  expect(hashTable.remove(B)).toBeFalsy();
+  expect(hashTable.remove(C)).toBeTruthy();
+  expect(hashTable.remove(C)).toBeFalsy();
+}
+
+// eslint-disable-next-line
+it("检查碰撞添加值", addValuesCollision);

@@ -26,6 +26,12 @@ export class ValuePair<K, V> {
   }
 }
 
+export class ValuePairLazy<K, V> extends ValuePair<K, V> {
+  constructor(public key: K, public value: V, public isDeleted = false) {
+    super(key, value);
+  }
+}
+
 export class MyObj {
   constructor(public el1: any, public el2: any) {}
 

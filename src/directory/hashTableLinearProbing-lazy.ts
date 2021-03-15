@@ -47,8 +47,75 @@ export default class HashTableLinearProbingLazy<K, V> {
 
   get(key: K) {
     const position = this.hashCode(key);
-    if(this.table[position] != null) {
-      if(this.table[position].key === key)
+    const table = this.table;
+    if (table[position] != null) {
+      if (table[position].key === key && table[position].isDeleted === false) {
+        return table[position].value;
+      }
+      let index = position + 1;
+      while (
+        table[index] != null &&
+        (table[index].key !== key || table[index].isDeleted)
+      ) {
+        index++;
+      }
+      if (
+        table[index] != null &&
+        table[index].key === key &&
+        !table[index].isDeleted
+      ) {
+        return table[index].value;
+      }
     }
+    return undefined;
+  }
+
+  remove(key: K): boolean {
+    let position = this.hashCode(key);
+    const { table } = this;
+    if (table[position] != null) {
+      if (table[position].key === key && !table[position].isDeleted) {
+        table[position].isDeleted = true;
+        this.size--;
+        return true;
+      }
+      position++;
+      while (table[position].key !== key || table[position].isDeleted) {
+        position++;
+      }
+      if (
+        table[position] != null &&
+        table[position].key === key &&
+        !table[position].isDeleted
+      ) {
+        table[position].isDeleted = true;
+        this.size--;
+        return true;
+      }
+    }
+    return false;
+  }
+
+  isEmpty() {
+    return this.size === 0;
+  }
+
+  clear() {
+    this.size = 0;
+    this.table = {};
+  }
+
+  getTable() {
+    return this.table;
+  }
+
+  toString(): string {
+    if (this.isEmpty()) return "";
+    const keys = Object.keys(this.table);
+    let objStr = `{${keys[0]} => ${this.table[keys[0]].toString()}}`;
+    for (let i = 1; i < keys.length; i++) {
+      objStr = `${objStr}, {${keys[i]} => ${this.table[keys[i]].toString()}}`;
+    }
+    return objStr;
   }
 }

@@ -3,6 +3,9 @@ import HashTableSeparateChaining from "../src/directory/HashTableSeparateChainin
 import HashTableLinearProbing from "../src/directory/hashTableLinearProbing";
 import { MyObj } from "../src/help";
 
+// test the hashTableLinearProbing-lazy class
+import HashTableLinearProbingLazy from "../src/directory/hashTableLinearProbing-lazy";
+
 const t = new HashTable();
 
 it("hashTable", () => {
@@ -125,3 +128,64 @@ function addValuesCollision() {
 
 // eslint-disable-next-line
 it("检查碰撞添加值", addValuesCollision);
+
+it("satrts empty", () => {
+  const hashTable = new HashTableLinearProbingLazy();
+  expect(hashTable.isEmpty()).toBeTruthy();
+  expect(hashTable.size).toBe(0);
+});
+
+it("generates hashCode", () => {
+  const hashTable: any = new HashTableLinearProbingLazy();
+  // numbers
+  expect(hashTable.hashCode(1)).toBe(1);
+  expect(hashTable.hashCode(10)).toBe(10);
+  expect(hashTable.hashCode(100)).toBe(100);
+  // strings
+  expect(hashTable.hashCode("1")).toBe(12);
+  expect(hashTable.hashCode("10")).toBe(23);
+  expect(hashTable.hashCode("100")).toBe(34);
+  expect(hashTable.hashCode("a")).toBe(23);
+  // objects
+  const hb = new HashTableLinearProbingLazy<MyObj, MyObj>();
+  const myObjList: MyObj[] = [];
+  for (let i = 1; i < 6; i++) {
+    myObjList.push(new MyObj(i, i + 1));
+  }
+  expect(hb.hashCode(myObjList[0])).toBe(1);
+  expect(hb.hashCode(myObjList[1])).toBe(3);
+  expect(hb.hashCode(myObjList[2])).toBe(5);
+  expect(hb.hashCode(myObjList[3])).toBe(7);
+  expect(hb.hashCode(myObjList[4])).toBe(9);
+});
+
+it("put undefined and null keys and values", () => {
+  const hashTable = new HashTableLinearProbingLazy<string, number>();
+  expect(hashTable.put("undefined", undefined)).toBeFalsy();
+  expect(hashTable.put("undefined", null)).toBeFalsy();
+  expect(hashTable.put(undefined, undefined)).toBeFalsy();
+  expect(hashTable.put(null, undefined)).toBeFalsy();
+  expect(hashTable.put("undefined", 1)).toBeTruthy();
+  expect(hashTable.get("undefined")).toBe(1);
+  expect(hashTable.put("null", 1)).toBeTruthy();
+  expect(hashTable.get("null")).toBe(1);
+});
+
+it("put values with collisions", () => {
+  const hashTable = new HashTableLinearProbingLazy<unknown, unknown>();
+  expect(hashTable.put("1", "1")).toBeTruthy();
+  expect(hashTable.put(12, 12)).toBeTruthy();
+  expect(hashTable.get(12)).toBe(12);
+  expect(hashTable.get("1")).toBe("1");
+  expect(hashTable.remove(12)).toBeTruthy();
+  expect(hashTable.size).toBe(1);
+  hashTable.clear();
+  expect(hashTable.isEmpty()).toBeTruthy();
+});
+
+it("test toString function", () => {
+  const hashTable = new HashTableLinearProbingLazy<number, number>();
+  expect(hashTable.put(1, 1)).toBeTruthy();
+  expect(hashTable.put(2, 2)).toBeTruthy();
+  expect(hashTable.toString()).toBe("{1 => [#1: 1]}, {2 => [#2: 2]}");
+});

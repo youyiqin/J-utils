@@ -69,9 +69,59 @@ abstract class HashTableOpenAddressingBase<K extends Hashable, V> {
     return this.size() === 0;
   }
 
+  /**
+   * 返回当前容量
+   * @returns number
+   */
   getCapacity(): number {
     return this.capacity;
   }
+
+  /**
+   * clear the hashtable - O(1)
+   * @returns void
+   */
+  clear(): void {
+    this.keyCount = 0;
+    this.valueList.length = 0;
+    this.keyList.length = 0;
+
+    this.usedBuckets = 0;
+    this.modificationCount += 1;
+  }
+
+  /**
+   * 检查是否存在 key
+   * @param  {K} key
+   * @returns boolean
+   */
+  containsKey(key: K): boolean {
+    return this.get(key) !== null;
+  }
+
+  /**
+   * 返回所有当前在使用的 key 值的 list
+   * @returns K[]
+   */
+  keys(): K[] {
+    const keys: K[] = [];
+    for (let key of this.keyList) {
+      if (key && key !== this.TOMBSTONE) keys.push(key);
+    }
+    return keys;
+  }
+
+  values(): V[] {
+    const values: V[] = [];
+    for (let i = 0; i < this.keyList.length; i++) {
+      if (this.keyList[i] && this.keyList[i] !== this.TOMBSTONE) {
+        values.push(values[i]);
+      }
+    }
+    return values;
+  }
+
+  get(key: K): V {}
 }
 
 export default HashTableOpenAddressingBase;

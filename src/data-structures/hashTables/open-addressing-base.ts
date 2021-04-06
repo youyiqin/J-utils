@@ -121,7 +121,15 @@ abstract class HashTableOpenAddressingBase<K extends Hashable, V> {
     return values;
   }
 
-  get(key: K): V {}
+  get(key: K): V | null {
+    let output: V | null = null;
+    this.setupProbing(key);
+    const offset = this.normalizeIndex(key.hashCode());
+  }
+
+  normalizeIndex(hash: number): number {
+    return (hash & 0x7fffffff) % this.capacity;
+  }
 }
 
 export default HashTableOpenAddressingBase;
